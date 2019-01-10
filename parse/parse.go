@@ -1,8 +1,9 @@
 package parse
 
 import (
-	"Crawler/util"
 	"fmt"
+
+	"github.com/wentaojia2014/Crawler/util"
 
 	"github.com/PuerkitoBio/goquery"
 )

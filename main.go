@@ -1,9 +1,10 @@
 package main
 
 import (
-	"Crawler/download"
-	"Crawler/parse"
 	"fmt"
+
+	"github.com/wentaojia2014/Crawler/download"
+	"github.com/wentaojia2014/Crawler/parse"
 )
 
 func main() {
