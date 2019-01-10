@@ -1,17 +1,23 @@
 package main
 
 import (
-	"fmt"
+	"github.com/wentaojia2014/Crawler/engine"
 
-	"github.com/wentaojia2014/Crawler/download"
 	"github.com/wentaojia2014/Crawler/parse"
 )
 
 func main() {
-	fmt.Println("Hello Crawler")
-	doc, err := download.Download("https://github.com/trending")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	parse.ParseFromGithub(doc)
+	var simplerTest engine.Trending
+	simplerTest.Run(
+		engine.RequestForGithub{
+			URL:       "https://github.com/trending",
+			ParseFunc: parse.ParseFromGithub,
+		},
+	)
+	simplerTest.Run(
+		engine.RequestForGithub{
+			URL:       "https://github.com/trending/developers",
+			ParseFunc: parse.ParseForDevelops,
+		},
+	)
 }
