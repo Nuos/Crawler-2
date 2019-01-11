@@ -2,6 +2,7 @@ package parse
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/wentaojia2014/Crawler/util"
 
@@ -10,6 +11,13 @@ import (
 
 //parse https://github.com/trending
 func ParseFromGithub(document *goquery.Document) {
+	githubFile := "github.txt"
+	fout, err := os.Create(githubFile)
+	defer fout.Close()
+	if err != nil {
+		fmt.Println(githubFile, err)
+		return
+	}
 	document.Find("div.explore-content ol.repo-list li").Each(func(i int, selection *goquery.Selection) {
 		RespName, _ := util.HandleCommon(selection.Find("div h3 a").Text())
 		URL, _ := util.HandleUrl(selection.Find("div").Eq(0).Find("h3 a").AttrOr("href", "None"))
@@ -25,11 +33,27 @@ func ParseFromGithub(document *goquery.Document) {
 		fmt.Println("Fork", Fork)
 		fmt.Println("TodayStars:", TodayStars)
 		fmt.Println("---------end---------")
+
+		fout.WriteString("\n---------begin---------")
+		fout.WriteString("\nRespName:" + RespName)
+		fout.WriteString("\nURL:" + URL)
+		fout.WriteString("\nDescript:" + Descript)
+		fout.WriteString("\nStars:" + Stars)
+		fout.WriteString("\nFork" + Fork)
+		fout.WriteString("\nTodayStars:" + TodayStars)
+		fout.WriteString("\n---------end---------")
 	})
 }
 
 //parse https://github.com/trending/developers
 func ParseForDevelops(document *goquery.Document) {
+	developerFile := "developer.txt"
+	fout, err := os.Create(developerFile)
+	defer fout.Close()
+	if err != nil {
+		fmt.Println(developerFile, err)
+		return
+	}
 	document.Find("div.explore-content ol li").Each(func(i int, selection *goquery.Selection) {
 		DevName, _ := util.HandleCommon(selection.Find("li div div").Eq(1).Find("h2 a").Text())
 		Descript, _ := util.HandleCommon(selection.Find("li div div").Eq(1).Find("a span").Text())
@@ -39,5 +63,10 @@ func ParseForDevelops(document *goquery.Document) {
 		fmt.Println("Descript:", Descript)
 		fmt.Println("URL:", URL)
 		fmt.Println("---------end---------")
+		fout.WriteString("\n---------begin---------")
+		fout.WriteString("\nDevName:" + DevName)
+		fout.WriteString("\nDescript:" + Descript)
+		fout.WriteString("\nURL:" + URL)
+		fout.WriteString("\n---------end---------")
 	})
 }
