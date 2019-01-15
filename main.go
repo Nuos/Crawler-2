@@ -4,6 +4,7 @@ import (
 	"github.com/wentaojia2014/Crawler/engine"
 
 	"github.com/wentaojia2014/Crawler/parse"
+	"github.com/wentaojia2014/Crawler/apiserver"
 )
 
 func main() {
@@ -20,4 +21,5 @@ func main() {
 			ParseFunc: parse.ParseForDevelops,
 		},
 	)
+	apiServer.New().Start()
 }

@@ -3,9 +3,8 @@ package parse
 import (
 	"fmt"
 
-	"github.com/wentaojia2014/Crawler/util"
-
 	"github.com/PuerkitoBio/goquery"
+	"github.com/wentaojia2014/Crawler/util"
 )
 
 //parse https://github.com/trending
